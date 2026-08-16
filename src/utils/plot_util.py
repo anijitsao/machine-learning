@@ -16,12 +16,14 @@ def generate_plots_eda(
             sns.heatmap(data=data)
         case "pair_plot":
             sns.pairplot(data=data, x=x, y=y)
-        # case _:
-        #     sns.countplot(data=data, x=x)
+        case _:
+            sns.countplot(data=data, x=x)
 
+    # tight layout to see the labels clearly spaced
+    plt.tight_layout()
     format_plots(x_label, y_label, plot_title)
     save_plots(plt, f"./artefacts/{artefact_title.replace(' ', '_')}.png")
-
+    plt.close()
 
 def format_plots(x_label: str, y_label: str, title):
     plt.xlabel(x_label)
