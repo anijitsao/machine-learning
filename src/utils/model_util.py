@@ -38,11 +38,11 @@ def get_randomized_search_params():
 
 
 def split_datasets(X, y, train_size, random_state=42):
-    splitted_datasets = train_test_split(
+    X_train, X_test, y_train, y_test = train_test_split(
         X, y, train_size=train_size, random_state=random_state
     )
     # print()
-    return splitted_datasets
+    return X_train, X_test, y_train, y_test
 
 
 def get_randomized_search_model(

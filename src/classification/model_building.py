@@ -14,11 +14,9 @@ def build_model(df):
     X = df.drop(columns="target")
     y = df["target"]
 
-    splitted_datasets = split_datasets(X, y, train_size=0.6, random_state=42)
-    X_train = splitted_datasets[0]
-    X_test = splitted_datasets[1]
-    y_train = splitted_datasets[2]
-    y_test = splitted_datasets[3]
+    X_train, X_test, y_train, y_test = split_datasets(
+        X, y, train_size=0.6, random_state=42
+    )
 
     base_model = get_base_model()
     cross_validation = get_cross_validation()
