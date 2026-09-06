@@ -3,7 +3,7 @@ from .data_peparation import clean_data
 from .model_building import build_model
 
 
-def init_classification():
+def init_regression():
     # get the cleaned dataframe
     df = clean_data()
     analysis_data(df)

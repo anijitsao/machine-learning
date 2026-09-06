@@ -1,4 +1,5 @@
 from src.classification import init_classification
+from src.regression import init_regression
 
 
 def main():
@@ -6,6 +7,9 @@ def main():
 
     # perform classification
     init_classification()
+
+    # perform regression
+    init_regression()
 
 
 if __name__ == "__main__":

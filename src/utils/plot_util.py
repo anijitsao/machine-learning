@@ -15,7 +15,9 @@ def generate_plots_eda(
         case "heatmap_plot":
             sns.heatmap(data=data)
         case "pair_plot":
-            sns.pairplot(data=data, x=x, y=y)
+            sns.pairplot(data=data)
+        case "scatter_plot":
+            sns.scatterplot(data=data, x=x, y=y)    
         case _:
             sns.countplot(data=data, x=x)
 

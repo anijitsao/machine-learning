@@ -5,14 +5,14 @@ def analysis_data(df):
     try:
         # ploting counts for each class type
         generate_plots_eda(
-            "count_plot",
+            "hist_plot",
             df,
             "target",
             None,
-            "Types of Wine",
+            "Diabetes probability",
             "Count",
-            "Count of Various wine types",
-            "count_plot_classification",
+            "Diabetes Progression Score",
+            "hist_plot_regression",
         )
 
         # plotting to check outliers
@@ -24,7 +24,19 @@ def analysis_data(df):
             "Statistical values of Data",
             "Count",
             "Statistical description of data",
-            "box_plot_classification",
+            "box_plot_regression",
+        )
+
+        # plotting pair plot
+        generate_plots_eda(
+            "scatter_plot",
+            df,
+            'target',
+            'age',
+            "Diabetes Score",
+            "Age",
+            "Relation of Daibetes score with Age",
+            "scatter_plot_regression",
         )
 
         # plotting heatmap
@@ -37,7 +49,7 @@ def analysis_data(df):
             "Attributes",
             "Attributes",
             "Correlation between Attributes",
-            "correlation_classification"
+            "correlation_regression",
         )
     except Exception as e:  # noqa: BLE001
         print("Error occurred while ploting", e)
