@@ -1,32 +1,44 @@
-from lightgbm import LGBMClassifier
-from sklearn.metrics import f1_score, precision_score, recall_score
-from sklearn.model_selection import train_test_split
+from src.utils import (
+    generate_scores,
+    get_base_model,
+    get_callbacks,
+    get_cross_validation,
+    get_final_model,
+    get_randomized_search_model,
+    get_randomized_search_params,
+    split_datasets,
+)
 
 
 def build_model(df):
     X = df.drop(columns="target")
     y = df["target"]
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, train_size=0.6, random_state=42
+    splitted_datasets = split_datasets(X, y, train_size=0.6, random_state=42)
+    X_train = splitted_datasets[0]
+    X_test = splitted_datasets[1]
+    y_train = splitted_datasets[2]
+    y_test = splitted_datasets[3]
+
+    base_model = get_base_model()
+    cross_validation = get_cross_validation()
+    params = get_randomized_search_params()
+    search_model = get_randomized_search_model(base_model, params, cross_validation)
+    search_model.fit(X_train, y_train)
+
+    print("best parameters\n", search_model.best_params_)
+
+    final_model = get_final_model(search_model.best_params_)
+    callbacks = get_callbacks()
+    final_model.fit(
+        X_train,
+        y_train,
+        eval_X=X_test,
+        eval_y=y_test,
+        eval_metric="multi_logloss",
+        callbacks=callbacks,
     )
 
-    model = LGBMClassifier(
-        learning_rate=0.1,
-        num_leaves=31,
-        n_estimators=100,
-        max_depth=5
-    )
-
-    model.fit(X_train, y_train)
-    predictions = model.predict(X_test)
-    precision = precision_score(y_test, predictions, average="weighted")
-    recall = recall_score(y_test, predictions, average="weighted")
-    f1 = f1_score(y_test, predictions, average="weighted")
-
-
-    print(f"Precision score: {precision}")
-    print(f"Recall score: {recall}")
-    print(f"F1 score: {f1}")
-
-
+    predictions = final_model.predict(X_test)
+    classification_scores = generate_scores(y_test, predictions)
+    print("Classification Report\n", classification_scores)
