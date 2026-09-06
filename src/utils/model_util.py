@@ -4,7 +4,7 @@ from pathlib import Path
 import joblib
 from lightgbm import LGBMClassifier, LGBMRegressor, early_stopping
 from scipy.stats import randint, uniform
-from sklearn.metrics import classification_report, root_mean_squared_error
+from sklearn.metrics import classification_report, r2_score, root_mean_squared_error
 from sklearn.model_selection import (
     KFold,
     RandomizedSearchCV,
@@ -40,9 +40,9 @@ def get_randomized_search_params():
     params = {
         "n_estimators": randint(100, 1000),
         "learning_rate": uniform(0.01, 0.1),
-        "max_depth": randint(3, 5),
+        "max_depth": randint(-1, 15),
         # only Light GBM uses following
-        "num_leaves": randint(15, 100),  # for XG Boost use min_child_weight
+        "num_leaves": randint(7, 120),  # for XG Boost use min_child_weight
         "min_child_samples": randint(5, 50),  # for XG Boost use gamma
     }
 
@@ -71,8 +71,8 @@ def get_randomized_search_model(
     params,
     cross_validation,
     iteration=3,
-    random_state=42,
     scoring="f1_macro",
+    random_state=42,
 ):
     search_model = RandomizedSearchCV(
         estimator=estimator,
@@ -95,8 +95,8 @@ def get_final_model(best_params, task_type="classification", random_state=42):
     return final_model
 
 
-def get_callbacks():
-    return [early_stopping(30)]
+def get_callbacks(stopping_rounds=30):
+    return [early_stopping(stopping_rounds)]
 
 
 def generate_scores(
@@ -109,7 +109,9 @@ def generate_scores(
         # use output_dict=True if you want to print as a dictionary
         scores = classification_report(y_true=true_data, y_pred=predictions, digits=2)
     else:
-        scores = root_mean_squared_error(y_true=true_data, y_pred=predictions)
+        rmse_score = root_mean_squared_error(y_true=true_data, y_pred=predictions)
+        r2_score_value = r2_score(y_true=true_data, y_pred=predictions)
+        scores = {"rmse": f"{rmse_score:.2f}", "r2": f"{r2_score_value:.2f}"}
     return scores
 
 
