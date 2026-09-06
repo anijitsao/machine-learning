@@ -1,4 +1,7 @@
 # from random import randint, uniform
+from pathlib import Path
+
+import joblib
 from lightgbm import LGBMClassifier, LGBMRegressor, early_stopping
 from scipy.stats import randint, uniform
 from sklearn.metrics import classification_report
@@ -84,3 +87,10 @@ def generate_scores(
     # use output_dict=True if you want to print as a dictionary
     scores = classification_report(y_true=true_data, y_pred=predictions, digits=2)
     return scores
+
+
+def save_model(model, path="./models"):
+    folder_path = Path(path)
+    folder_path.mkdir(parents=True, exist_ok=True)
+    joblib.dump(model, f"{path}/classification.pkl")
+    print("Model saved successfully")

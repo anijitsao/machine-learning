@@ -6,6 +6,7 @@ from .model_util import (
     get_final_model,
     get_randomized_search_model,
     get_randomized_search_params,
+    save_model,
     split_datasets,
 )
 
