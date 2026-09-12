@@ -1,1 +1,1 @@
-from .predict_wine_types_service import predict_wine_type
+from .prediction_service import get_diabetes_prediction, get_wine_type_prediction

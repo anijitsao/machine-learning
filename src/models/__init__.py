@@ -1,1 +1,1 @@
-from .pydantic_models import PredictWineModel
+from .pydantic_models import PredictWineModel, PredictDiabetesModel
