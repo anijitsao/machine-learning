@@ -3,7 +3,7 @@ from pathlib import Path
 
 import joblib
 from lightgbm import LGBMClassifier, LGBMRegressor, early_stopping
-from scipy.stats import randint, uniform
+from scipy.stats import loguniform, randint, uniform
 from sklearn.metrics import classification_report, r2_score, root_mean_squared_error
 from sklearn.model_selection import (
     KFold,
@@ -38,12 +38,18 @@ def get_cross_validation(task_type="classification", n_splits=3, random_state=42
 
 def get_randomized_search_params():
     params = {
-        "n_estimators": randint(100, 1000),
-        "learning_rate": uniform(0.01, 0.1),
-        "max_depth": randint(-1, 15),
+        "n_estimators": randint(1000, 2000),
+        "learning_rate": loguniform(0.005, 0.1),
+        "max_depth": randint(2, 6),
         # only Light GBM uses following
-        "num_leaves": randint(7, 120),  # for XG Boost use min_child_weight
-        "min_child_samples": randint(5, 50),  # for XG Boost use gamma
+        "num_leaves": randint(4, 16),  # for XG Boost use min_child_weight
+        "min_child_samples": randint(15, 60),  # for XG Boost use gamma
+        "reg_alpha": loguniform(1e-3, 10.0),
+        "reg_lambda": loguniform(1e-3, 100.0),
+        # Stochastic regularisation (crucial for small datasets)
+        "subsample": uniform(0.5, 0.5),  # Samples 0.5 to 1.0
+        "subsample_freq": [1],  # MUST be integer! Fixed at 1
+        "colsample_bytree": uniform(0.4, 0.5),  # Samples 0.4 to 0.9
     }
 
     return params
@@ -111,7 +117,7 @@ def generate_scores(
     else:
         rmse_score = root_mean_squared_error(y_true=true_data, y_pred=predictions)
         r2_score_value = r2_score(y_true=true_data, y_pred=predictions)
-        scores = {"rmse": f"{rmse_score:.2f}", "r2": f"{r2_score_value:.2f}"}
+        scores = {"rmse": round(rmse_score, 2), "r2": round(r2_score_value, 2)}
     return scores
 
 

@@ -16,10 +16,8 @@ def build_model(df):
         X = df.drop(columns="target")
         y = df["target"]
 
-        X_train, X_test, y_train, y_test = split_datasets(
-            X, y, train_size=0.6, random_state=42
-        )
-
+        X_train, X_temp, y_train, y_temp = split_datasets(X, y, 0.6)
+        X_test, X_val, y_test, y_val = split_datasets(X_temp, y_temp, 0.2)
         base_model = get_base_model()
         cross_validation = get_cross_validation()
         params = get_randomized_search_params()
@@ -36,8 +34,8 @@ def build_model(df):
         final_model.fit(
             X_train,
             y_train,
-            eval_X=X_test,
-            eval_y=y_test,
+            eval_X=X_val,
+            eval_y=y_val,
             eval_metric="multi_logloss",
             callbacks=callbacks,
         )

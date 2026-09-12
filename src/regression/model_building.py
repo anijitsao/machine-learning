@@ -16,7 +16,8 @@ def build_model(df):
         X = df.drop(columns="target")
         y = df["target"]
 
-        X_train, X_test, y_train, y_test = split_datasets(X, y, 0.6, "regression")
+        X_train, X_temp, y_train, y_temp = split_datasets(X, y, 0.6, "regression")
+        X_test, X_val, y_test, y_val = split_datasets(X_temp, y_temp, 0.2, "regression")
 
         base_model = get_base_model("regression")
         cross_validation = get_cross_validation("regression", 4)
@@ -24,7 +25,7 @@ def build_model(df):
 
         # hyper parameter tuning
         search_model = get_randomized_search_model(
-            base_model, params, cross_validation, 15, "r2"
+            base_model, params, cross_validation, 30, "neg_root_mean_squared_error"
         )
         search_model.fit(X_train, y_train)
 
@@ -32,12 +33,12 @@ def build_model(df):
 
         # generate the best model using best params
         final_model = get_final_model(search_model.best_params_, "regression")
-        callbacks = get_callbacks(80)
+        callbacks = get_callbacks(50)
         final_model.fit(
             X_train,
             y_train,
-            eval_X=X_test,
-            eval_y=y_test,
+            eval_X=X_val,
+            eval_y=y_val,
             eval_metric="rmse",
             callbacks=callbacks,
         )
