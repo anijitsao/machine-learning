@@ -1,0 +1,1 @@
+from .predict_wine_types_service import predict_wine_type
