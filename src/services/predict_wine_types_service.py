@@ -1,8 +1,5 @@
-import numpy as np
 import pandas as pd
 from fastapi import HTTPException, Request
-
-from src.models import PredictWineModel
 
 
 def predict_wine_type(payload, req: Request):
