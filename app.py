@@ -3,6 +3,8 @@ import os
 from dotenv import load_dotenv
 from fastapi import FastAPI
 
+from src.routes import index_router, prediction_router
+
 load_dotenv()
 app = FastAPI(
     description=os.getenv("APP_DESCRIPTION", "description"),
@@ -10,6 +12,5 @@ app = FastAPI(
 )
 
 
-@app.get("/")
-def index():
-    return {"message": "Index route reached"}
+app.include_router(router=index_router)
+app.include_router(router=prediction_router, prefix="/prediction")
