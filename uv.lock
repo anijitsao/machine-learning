@@ -510,7 +510,12 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "fastapi", extra = ["standard"] },
+    { name = "joblib" },
     { name = "lightgbm" },
+    { name = "matplotlib" },
+    { name = "pandas" },
+    { name = "pydantic" },
+    { name = "python-dotenv" },
     { name = "scikit-learn" },
     { name = "seaborn" },
 ]
@@ -518,7 +523,12 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "fastapi", extras = ["standard"], specifier = ">=0.140.0" },
+    { name = "joblib", specifier = ">=1.5.3" },
     { name = "lightgbm", specifier = ">=4.7.0" },
+    { name = "matplotlib", specifier = ">=3.11.1" },
+    { name = "pandas", specifier = ">=3.0.5" },
+    { name = "pydantic", specifier = ">=2.13.4" },
+    { name = "python-dotenv", specifier = ">=1.2.2" },
     { name = "scikit-learn", specifier = ">=1.9.0" },
     { name = "seaborn", specifier = ">=0.13.2" },
 ]
