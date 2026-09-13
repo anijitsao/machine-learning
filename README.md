@@ -76,7 +76,7 @@ python main.py
 FastAPI is used to create the necessary REST APIs for this application. To run the FastAPI application please use the following commands from a terminal. 
 
 
-> Please make sure you have run the Machine Learning pipeline before running the FastAPI application.
+> :exclamation: Please make sure you have run the Machine Learning pipeline before running the FastAPI application.
 
 ```shell
 # Navigate to the directory
