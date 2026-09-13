@@ -8,16 +8,20 @@ At last, all the models are saved in `PKL` files. And the models predict data wh
 - Data is **cleaned** and **processed** using `pandas`.
 - **Exploratory Data Analysis (EDA)** is performed on the data. Necessary plots are generated using the famous plotting library `seaborn` and `matplotlib`.
 
-<ul>Models are built using `scikit-learn` and popular **gradient boosting** library `LightGBM`</ul>
-<ul>**Hyperparameter tuning** of `LightGBM` is done using *Randomized Search CV*.</ul>
-<ul>**Cross validation** is done using **K-Fold** algorithms</ul>
+<ul>
+<li>Models are built using <code>scikit-learn</cpde> and popular <b>gradient boosting</b> library `LightGBM`</li>
+<li><b>Hyperparameter tuning</b> of `LightGBM` is done using <i>Randomized Search CV</i>.</li>
+<li><b>Cross validation</b> is done using <b>K-Fold</b> algorithms</li>
+</ul>
+
 
 - Models are saved into `PKL` format using `joblib`.
 
-
-<ul>`FastAPI` is used to create the REST APIs.</ul>
-<ul>Models predict data while hit by *respective* API endpoints.</ul>
-<ul>Swagger Documentation is supported through FastAPI.</ul>
+<ul>
+<li>FastAPI is used to create the REST APIs.</li>
+<li>Models predict data while hit by <i>respective</i> API endpoints.</li>
+<li>Swagger Documentation is supported through FastAPI.</li>
+</ul>
 
 
 ### Installation
