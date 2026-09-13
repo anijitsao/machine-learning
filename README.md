@@ -9,7 +9,7 @@ At last, all the models are saved in `PKL` files. And the models predict data wh
 - **Exploratory Data Analysis (EDA)** is performed on the data. Necessary plots are generated using the famous plotting library `seaborn` and `matplotlib`.
 
 <ul>
-<li>Models are built using <code>scikit-learn</cpde> and popular <b>gradient boosting</b> library `LightGBM`</li>
+<li>Models are built using <code>scikit-learn</code> and popular <b>gradient boosting</b> library `LightGBM`</li>
 <li><b>Hyperparameter tuning</b> of `LightGBM` is done using <i>Randomized Search CV</i>.</li>
 <li><b>Cross validation</b> is done using <b>K-Fold</b> algorithms</li>
 </ul>
