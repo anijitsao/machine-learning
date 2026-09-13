@@ -11,7 +11,7 @@ def generate_plots_eda(
         case "box_plot":
             sns.boxplot(data=data, x=x)
         case "hist_plot":
-            sns.histplot(data=data, x=x, kde=True)
+            sns.histplot(data=data, x=x, kde=True, bins=40)
         case "heatmap_plot":
             sns.heatmap(data=data)
         case "pair_plot":

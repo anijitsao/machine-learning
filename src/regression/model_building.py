@@ -25,7 +25,11 @@ def build_model(df):
 
         # hyper parameter tuning
         search_model = get_randomized_search_model(
-            base_model, params, cross_validation, 30, "neg_root_mean_squared_error"
+            base_model,
+            params,
+            cross_validation,
+            iteration=3,
+            scoring="neg_root_mean_squared_error",
         )
         search_model.fit(X_train, y_train)
 
