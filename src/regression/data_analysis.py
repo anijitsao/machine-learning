@@ -1,4 +1,4 @@
-from src.utils.plot_util import generate_plots_eda
+from src.utils import generate_plots_eda, generate_subplots
 
 
 def analysis_data(df):
@@ -16,23 +16,14 @@ def analysis_data(df):
         )
 
         # plotting to check outliers
-        generate_plots_eda(
-            "box_plot",
-            df,
-            None,
-            None,
-            "Statistical values of Data",
-            "Count",
-            "Statistical description of data",
-            "box_plot_regression",
-        )
+        generate_subplots(dataframe=df, artefact_title="box_plot_regression")
 
         # plotting pair plot
         generate_plots_eda(
             "scatter_plot",
             df,
-            'target',
-            'age',
+            "target",
+            "age",
             "Diabetes Score",
             "Age",
             "Relation of Daibetes score with Age",

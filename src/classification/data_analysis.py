@@ -1,4 +1,4 @@
-from src.utils.plot_util import generate_plots_eda
+from src.utils.plot_util import generate_plots_eda, generate_subplots
 
 
 def analysis_data(df):
@@ -16,16 +16,7 @@ def analysis_data(df):
         )
 
         # plotting to check outliers
-        generate_plots_eda(
-            "box_plot",
-            df,
-            None,
-            None,
-            "Statistical values of Data",
-            "Count",
-            "Statistical description of data",
-            "box_plot_classification",
-        )
+        generate_subplots(dataframe=df, artefact_title="box_plot_classification")
 
         # plotting heatmap
         heatmap_data = df.drop(columns=["target"]).corr()
