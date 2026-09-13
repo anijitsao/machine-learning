@@ -4,18 +4,20 @@ This project demonstrates various concepts of Machine Learing (ML) pipeline. Var
 At last, all the models are saved in `PKL` files. And the models predict data when they hit by respective urls.
 
 ### Features
-- All the ML models are trained with *structured* `CSV` data. For simplcity, built in datasets of `scikit-learn` is used.
+- All the ML models are trained with *structured* `CSV` data. For simplicity, built in datasets of `scikit-learn` is used.
 - Data is **cleaned** and **processed** using `pandas`.
 - **Exploratory Data Analysis (EDA)** is performed on the data. Necessary plots are generated using the famous plotting library `seaborn` and `matplotlib`.
 
-- Models are built using `scikit-learn` and popular **gradient boosting** library `LightGBM`
-- **Hyperparameter tuning** of `LightGBM` is done using *Randomized Search CV*.
+<ul>Models are built using `scikit-learn` and popular **gradient boosting** library `LightGBM`</ul>
+<ul>**Hyperparameter tuning** of `LightGBM` is done using *Randomized Search CV*.</ul>
+<ul>**Cross validation** is done using **K-Fold** algorithms</ul>
 
 - Models are saved into `PKL` format using `joblib`.
 
-- `FastAPI` is used to create the REST APIs
-- Models predict data while upon *respective* API endpoints.
-- Swagger Documentation is supported through FastAPI.
+
+<ul>`FastAPI` is used to create the REST APIs.</ul>
+<ul>Models predict data while hit by *respective* API endpoints.</ul>
+<ul>Swagger Documentation is supported through FastAPI.</ul>
 
 
 ### Installation
@@ -82,4 +84,4 @@ uv run fastapi dev app.py # development
 uv run fastapi run app.py # production
 ```
 
-Now please go to [http://localhost:8000/docs] and play with the APIs
+Now please go to [http://localhost:8000/docs](http://localhost:8000/docs) and play with the APIs
