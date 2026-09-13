@@ -87,4 +87,5 @@ uv run fastapi dev app.py # development
 uv run fastapi run app.py # production
 ```
 
-Now please go to [http://localhost:8000/docs](http://localhost:8000/docs) and play with the APIs
+:rocket: Now please go to [http://localhost:8000/docs](http://localhost:8000/docs) and play with the APIs.
+
