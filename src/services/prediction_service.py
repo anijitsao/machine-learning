@@ -22,7 +22,9 @@ def get_wine_type_prediction(payload, req: Request):
         return {"data": {"wine_type": predicted_type}}
     except Exception as e:  # noqa: BLE001
         print("Error occurred while getting predictions", e)
-        return HTTPException(500, e)
+
+        # must raise it instead of return
+        raise HTTPException(500, detail=str(e))
 
 
 def get_diabetes_prediction(payload, req: Request):
@@ -41,4 +43,4 @@ def get_diabetes_prediction(payload, req: Request):
         }
     except Exception as e:  # noqa: BLE001
         print("Error occurred while getting predictions", e)
-        return HTTPException(500, e)
+        raise HTTPException(500, detail=str(e))
