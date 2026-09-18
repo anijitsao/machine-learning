@@ -36,20 +36,29 @@ def get_cross_validation(task_type="classification", n_splits=3, random_state=42
     return cross_validation
 
 
-def get_randomized_search_params():
+def get_randomized_search_params(
+    n_estimators=(1000, 2000),
+    learning_rate=(0.005, 0.1),
+    max_depth=(2, 6),
+    num_leaves=(4, 16),
+    min_child_samples=(15, 60),
+    reg_alpha=(0.1, 10),
+    reg_lambda=(0.1, 10),
+    subsample=(0.5, 0.9),
+    colsample_bytree=(0.4, 0.5),
+):
     params = {
-        "n_estimators": randint(1000, 2000),
-        "learning_rate": loguniform(0.005, 0.1),
-        "max_depth": randint(2, 6),
+        "n_estimators": randint(*n_estimators),
+        "learning_rate": loguniform(*learning_rate),
+        "max_depth": randint(*max_depth),
         # only Light GBM uses following
-        "num_leaves": randint(4, 16),  # for XG Boost use min_child_weight
-        "min_child_samples": randint(15, 60),  # for XG Boost use gamma
-        "reg_alpha": loguniform(1e-3, 10.0),
-        "reg_lambda": loguniform(1e-3, 100.0),
+        "num_leaves": randint(*num_leaves),  # for XG Boost use min_child_weight
+        "min_child_samples": randint(*min_child_samples),  # for XG Boost use gamma
+        "reg_alpha": loguniform(*reg_alpha),
+        "reg_lambda": loguniform(*reg_lambda),
         # Stochastic regularisation (crucial for small datasets)
-        "subsample": uniform(0.5, 0.5),  # Samples 0.5 to 1.0
-        "subsample_freq": [1],  # MUST be integer! Fixed at 1
-        "colsample_bytree": uniform(0.4, 0.5),  # Samples 0.4 to 0.9
+        "subsample": uniform(*subsample),
+        "colsample_bytree": uniform(*colsample_bytree),
     }
 
     return params

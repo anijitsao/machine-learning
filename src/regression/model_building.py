@@ -37,7 +37,7 @@ def build_model(df):
 
         # generate the best model using best params
         final_model = get_final_model(search_model.best_params_, "regression")
-        callbacks = get_callbacks(50)
+        callbacks = get_callbacks(stopping_rounds=30)
         final_model.fit(
             X_train,
             y_train,
