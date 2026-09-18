@@ -18,7 +18,7 @@ def get_base_model(task_type="classification", random_state=42):
     if task_type == "classification":
         base_model = LGBMClassifier(random_state=random_state, verbosity=-1)
     else:
-        base_model = LGBMRegressor(random_state=42, verbosity=-1)
+        base_model = LGBMRegressor(random_state=random_state, verbosity=-1)
     return base_model
 
 
@@ -54,9 +54,8 @@ def get_randomized_search_params(
         "n_estimators": randint(*n_estimators),
         "learning_rate": loguniform(*learning_rate),
         "max_depth": randint(*max_depth),
-        # only Light GBM uses following
-        "num_leaves": randint(*num_leaves),  # for XG Boost use min_child_weight
-        "min_child_samples": randint(*min_child_samples),  # for XG Boost use gamma
+        "num_leaves": randint(*num_leaves),  # XGBoost: max_leaves
+        "min_child_samples": randint(*min_child_samples),  # XGBoost: min_child_weight
         "reg_alpha": loguniform(*reg_alpha),
         "reg_lambda": loguniform(*reg_lambda),
         # Stochastic regularisation (crucial for small datasets)
