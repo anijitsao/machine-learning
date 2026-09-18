@@ -40,12 +40,15 @@ def get_randomized_search_params(
     n_estimators=(1000, 2000),
     learning_rate=(0.005, 0.1),
     max_depth=(2, 6),
-    num_leaves=(4, 16),
+    num_leaves=(4, 17),
     min_child_samples=(15, 60),
     reg_alpha=(0.1, 10),
     reg_lambda=(0.1, 10),
-    subsample=(0.5, 0.9),
-    colsample_bytree=(0.4, 0.5),
+    subsample=(
+        0.3,
+        0.7,
+    ),  # uniform(a,b) takes values from a, a+b. For LGBM it should be 0-1
+    colsample_bytree=(0.4, 0.6),
 ):
     params = {
         "n_estimators": randint(*n_estimators),

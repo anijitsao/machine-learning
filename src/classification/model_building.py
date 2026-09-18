@@ -20,7 +20,9 @@ def build_model(df):
         X_test, X_val, y_test, y_val = split_datasets(X_temp, y_temp, 0.2)
         base_model = get_base_model()
         cross_validation = get_cross_validation()
-        params = get_randomized_search_params()
+        params = get_randomized_search_params(
+            n_estimators=(100, 1000), learning_rate=(0.01, 1)
+        )
 
         # hyper parameter tuning
         search_model = get_randomized_search_model(base_model, params, cross_validation)
